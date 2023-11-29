@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 
@@ -9,7 +9,11 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
+
 export class ModalComponent {
+  @Input() mostrarAceptar : boolean = true;
+  @Input() mostrarCancelar : boolean = true;
+
   @Output() aceptarClicked = new EventEmitter<void>();
   @Output() cancelarClicked = new EventEmitter<void>();
 

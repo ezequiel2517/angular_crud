@@ -4,17 +4,38 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ApiBancoService } from '../../services/api-banco.service';
 import { Producto } from '../../models/producto';
 import { ButtonComponent } from '../button/button.component';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, ModalComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
-export class RegistroComponent {
 
+export class RegistroComponent {
   productoForm: FormGroup;
+  mostrarRespuesta: boolean = false;
+  mRespuesta : string = "";
+
+  private validarCampo(min: number, max: number) {
+    return (control: any) => {
+      const largo: number = String(control.value).length;
+      if (largo < min || largo > max)
+        return { invalidCampo: true };
+      else
+        return null;
+    };
+  }
+
+  private validarFecha(control: any) {
+    const fecha = new Date(control.value);
+    const esFechaValida = !isNaN(fecha.getTime());
+    const esFormatoCorrecto = /^\d{4}-\d{2}-\d{2}$/.test(control.value);
+  
+    return esFechaValida && esFormatoCorrecto ? null : { invalidDate: true };
+  }
 
   constructor(private fb: FormBuilder, private api: ApiBancoService) {
     this.productoForm = this.fb.group({
@@ -27,10 +48,7 @@ export class RegistroComponent {
     });
   }
 
-
-
   onSubmit() {
-    console.log("gola")
     const producto: Producto = {
       id: this.productoForm.get('Id')?.value,
       name: this.productoForm.get('Nombre')?.value,
@@ -38,36 +56,24 @@ export class RegistroComponent {
       logo: this.productoForm.get('Logo')?.value,
       date_release: this.productoForm.get('FechaLiberacion')?.value,
       date_revision: this.productoForm.get('FechaRevision')?.value,
-  };
-    const datosJson = JSON.stringify(producto);
-    console.log(datosJson);
-
-    this.api.enviarDatos(datosJson).subscribe(
-        response => {
-            // Maneja la respuesta aquí
-            console.log('Respuesta:', response);
-        },
-        error => {
-            // Maneja los errores aquí
-            console.error('Error al realizar la solicitud:', error);
-        }
-    );
-}
-
-
-  private validarCampo(min: number, max: number) {
-    return (control: any) => {
-      const largo: number = String(control.value).length;
-      if (largo < min || largo > max) {
-        return { invalidCampo: true };
-      } else {
-        return null;
-      }
     };
+
+    const productoJson = JSON.stringify(producto);
+
+    this.api.enviarDatos(productoJson).subscribe(
+      (res) => {
+        this.mRespuesta = `Se creó el elemento de id: ${res.id}, con éxito`;
+        this.mostrarRespuesta=true;
+        this.productoForm.reset();
+      },
+      message => {
+        this.mostrarRespuesta=true;
+        this.mRespuesta = `Error al crear el elemento: ${message?.error}`;
+      }
+    );
   }
 
-  private validarFecha(control: any) {
-    const fecha = new Date(control.value);
-    return !isNaN(fecha.getTime()) ? null : { invalidDate: true };
+  onAceptar(){
+    this.mostrarRespuesta = false;
   }
 }
