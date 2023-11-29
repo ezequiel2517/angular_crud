@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <button type="reset" class="buttonReset">Reset</button>
+            <app-button [tipo]="'reset'" [color]="'gray'">Reset</app-button>
         </div>
 
         <div class="column">
@@ -56,7 +56,8 @@
                     El campo debe contener una fecha valida AAAA-MM-DD.
                 </div>
             </div>
-            <button type="submit" [disabled]="productoForm.invalid" class="buttonSubmit">Enviar</button>
+            
+            <app-button [tipo]="'submit'" [color]="'yellow'" [disponible]="productoForm.invalid ? false : true">Enviar</app-button>
         </div>
     </form>
 </div>

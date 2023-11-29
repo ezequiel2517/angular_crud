@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ApiBancoService } from '../../services/api-banco.service';
 import { Producto } from '../../models/producto';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -29,6 +30,7 @@ export class RegistroComponent {
 
 
   onSubmit() {
+    console.log("gola")
     const producto: Producto = {
       id: this.productoForm.get('Id')?.value,
       name: this.productoForm.get('Nombre')?.value,

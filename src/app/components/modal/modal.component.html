@@ -1,0 +1,11 @@
+<div class="popup-overlay">
+    <div class="popup-container">
+      <ng-content></ng-content>
+      <hr>
+      <div class="container-button">
+        <app-button [color]="'yellow'" (click)="onAceptar()">Aceptar</app-button>
+        <app-button [color]="'grey'" (click)="onCancelar()">Cancelar</app-button>
+      </div>
+    </div>
+  </div>
+  

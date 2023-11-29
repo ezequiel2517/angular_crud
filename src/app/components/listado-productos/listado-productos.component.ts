@@ -1,12 +1,13 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ModalComponent } from '../modal/modal.component';
 
 
 @Component({
   selector: 'app-listado-productos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalComponent],
   templateUrl: './listado-productos.component.html',
   styleUrl: './listado-productos.component.css'
 })
@@ -22,7 +23,7 @@ export class ListadoProductosComponent {
     for (let i = 1; i <= 50; i++) {
       this.items.push(
         {
-          "id": `12sdss3`,
+          "id": `12sdss3${i}`,
           "name": `231saa${i}`,
           "description": "dadsa",
           "logo": "https://sitechecker.pro/wp-content/uploads/2023/05/URL-meaning.jpg",
@@ -69,7 +70,7 @@ export class ListadoProductosComponent {
         item.description.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
-  
+
     // Reiniciar a la primera página después de aplicar el filtro
     this.currentPage = 1;
 
@@ -77,12 +78,28 @@ export class ListadoProductosComponent {
     this.totalPages = this.getTotalPages();
   }
 
-  eliminarItem(item: any): void {
-  // Aquí debes implementar la lógica para eliminar el elemento
-  // por ejemplo, puedes filtrar la lista de items para quitar el elemento a eliminar
-  this.items = this.items.filter(i => i !== item);
-  this.filterItems();
-  this.cdr.detectChanges();
-  // También podrías realizar una llamada a un servicio para eliminar el elemento en tu backend
-}
+  eliminarItem(itemId: string): void {
+    // Aquí debes implementar la lógica para eliminar el elemento
+    // por ejemplo, puedes filtrar la lista de items para quitar el elemento a eliminar
+    this.items = this.items.filter(item => item.id !== itemId);
+    this.filterItems();
+    this.cdr.detectChanges();
+    // También podrías realizar una llamada a un servicio para eliminar el elemento en tu backend
+  }
+
+  mostrarPopupPorItem: { [key: string]: boolean } = {};
+
+  mostrarPopup(itemId: string) {
+    this.mostrarPopupPorItem[itemId] = true;
+  }
+
+  onAceptar(itemId: string) {
+    this.eliminarItem(itemId);
+    this.mostrarPopupPorItem[itemId] = false;
+  }
+
+  onCancelar(itemId: string) {
+    // Lógica cuando se hace clic en Cancelar
+    this.mostrarPopupPorItem[itemId] = false;
+  }
 }

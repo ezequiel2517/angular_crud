@@ -78,3 +78,13 @@ span {
     margin: 0 10px;
 }
 
+.fas {
+    cursor: pointer;
+    cursor: pointer;
+    color: grey;
+}
+
+.fas:hover{
+    cursor: pointer;
+    color: black;
+}
