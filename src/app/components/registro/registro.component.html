@@ -1,0 +1,62 @@
+
+<div class="container">
+    <h1 class="">FORMULARIO DE REGISTRO</h1>
+    <div class="separador"></div>
+    <form [formGroup]="productoForm" (ngSubmit)="onSubmit()" class="formContainer">
+        <div class="column">
+            <div class="box">
+                <label for="Id">Id</label>
+                <input type="text" id="Id" formControlName="Id" />
+                <div *ngIf="productoForm.get('Id')?.hasError('invalidCampo') && productoForm.get('Id')?.touched" class="error-message">
+                    El campo debe tener un largo entre 3 y 10 caracteres.
+                </div>
+            </div>
+
+            <div class="box">
+                <label for="Nombre">Nombre</label>
+                <input type="text" id="Nombre" formControlName="Nombre" />
+                <div *ngIf="productoForm.get('Nombre')?.hasError('invalidCampo') && productoForm.get('Nombre')?.touched" class="error-message">
+                    El campo debe tener un largo entre 5 y 100 caracteres.
+                </div>
+            </div>
+
+            <div class="box">
+                <label for="FechaLiberacion">Fecha de liberación</label>
+                <input type="text" id="FechaLiberacion" formControlName="FechaLiberacion" />
+                <div *ngIf="productoForm.get('FechaLiberacion')?.hasError('invalidDate') && productoForm.get('FechaLiberacion')?.touched" class="error-message">
+                    El campo debe contener una fecha valida AAAA-MM-DD.
+                </div>
+            </div>
+
+            <button type="reset" class="buttonReset">Reset</button>
+        </div>
+
+        <div class="column">
+            <div class="box">
+                <label for="Id">Logo</label>
+                <input type="text" id="Logo" formControlName="Logo"/>
+                <div *ngIf="productoForm.get('Logo')?.hasError('required') && productoForm.get('Logo')?.touched" class="error-message">
+                    El campo no puede ser vacío.
+                </div>
+            </div>
+            
+
+            <div class="box">
+                <label for="Descripcion">Descripcion</label>
+                <input type="text" id="Descripcion" formControlName="Descripcion" />
+                <div *ngIf="productoForm.get('Descripcion')?.hasError('invalidCampo') && productoForm.get('Descripcion')?.touched" class="error-message">
+                    El campo debe tener un largo entre 10 y 200 caracteres.
+                </div>
+            </div>
+
+            <div class="box">
+                <label for="FechaRevision">Fecha de revisión</label>
+                <input type="text" id="FechaRevision" formControlName="FechaRevision" />
+                <div *ngIf="productoForm.get('FechaRevision')?.hasError('invalidDate') && productoForm.get('FechaRevision')?.touched" class="error-message">
+                    El campo debe contener una fecha valida AAAA-MM-DD.
+                </div>
+            </div>
+            <button type="submit" [disabled]="productoForm.invalid" class="buttonSubmit">Enviar</button>
+        </div>
+    </form>
+</div>
