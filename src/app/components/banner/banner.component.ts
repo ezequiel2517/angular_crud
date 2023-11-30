@@ -1,6 +1,6 @@
 import { Component, OnInit, } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 
@@ -14,4 +14,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BannerComponent {
   logo: string = 'assets/logo.png';
+
+  constructor(private router: Router) { }
+
+  toMenu() : void{
+    this.router.navigate(["/menu"]);
+  }
 }

@@ -1,39 +1,49 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
+import { ApiBancoService } from '../../services/api-banco.service';
+import { Producto } from '../../models/producto';
+import { CargandoComponent } from '../cargando/cargando.component';
 
 
 @Component({
   selector: 'app-listado-productos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalComponent],
+  imports: [CommonModule, FormsModule, ModalComponent, CargandoComponent],
   templateUrl: './listado-productos.component.html',
   styleUrl: './listado-productos.component.css'
 })
-export class ListadoProductosComponent {
-  items: any[] = [];
+export class ListadoProductosComponent implements OnInit {
+  items: Producto[] = [];
   itemsPerPage: number = 5;
   currentPage: number = 1;
-  filteredItems: any[] = [];
+  filteredItems: Producto[] = [];
   searchTerm: string = '';
   totalPages: number = 0;
+  cargando: boolean = true;
 
-  constructor(private cdr: ChangeDetectorRef) {
-    for (let i = 1; i <= 50; i++) {
-      this.items.push(
-        {
-          "id": `12sdss3${i}`,
-          "name": `231saa${i}`,
-          "description": "dadsa",
-          "logo": "https://sitechecker.pro/wp-content/uploads/2023/05/URL-meaning.jpg",
-          "date_release": "2023-11-11T00:00:00.000+00:00",
-          "date_revision": "2024-11-11T00:00:00.000+00:00"
+  constructor(private cdr: ChangeDetectorRef, private api: ApiBancoService) {
+  }
+
+  ngOnInit(): void {
+    this.obtenerProductos();
+    this.totalPages = this.getTotalPages();
+  }
+
+  obtenerProductos(): void {
+    setTimeout(() => {
+      this.api.getProductos().subscribe(
+        productos => {
+          this.items = productos;
+          this.filteredItems = this.items;
+          this.cargando = false;
+        },
+        error => {
         }
       );
-    }
-    this.filteredItems = this.items;
-    this.totalPages = this.getTotalPages();
+    }, 2000);
+
   }
 
   getItemsForPage(): any[] {
