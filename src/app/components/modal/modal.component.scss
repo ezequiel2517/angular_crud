@@ -32,3 +32,17 @@ hr {
   justify-content: space-around;
   margin: auto;
 }
+
+//TABLES
+@media only screen and (max-width: 768px) {
+  .popup-container {
+    width: 50%;
+  }
+}
+
+//SMARTPHONE
+@media only screen and (max-width: 480px) {
+  .popup-container {
+    width: 80%;
+  }
+}

@@ -1,11 +1,26 @@
+@import "../../styles/colors.scss";
+@import "../../../styles.scss";
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 55%;
+  max-width: 60%;
   margin: auto;
   max-height: 70%;
   background-color: white;
+}
+
+.title {
+  font-family: $font-global;
+  text-align: center;
+  padding: 3px 0;
+}
+
+.separador {
+  height: 2px;
+  background-color: $secondary-color;
+  margin-bottom: 3px;
 }
 
 //TABLES

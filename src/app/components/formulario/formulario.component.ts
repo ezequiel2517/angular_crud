@@ -74,7 +74,6 @@ export class FormularioComponent implements OnInit {
         date_release: this.productoForm.value?.FechaLiberacion,
         date_revision: this.productoForm.value?.FechaRevision
       }
-      console.log(producto);
       this.onSubmitForm.emit(producto);
     }
   }
