@@ -4,7 +4,7 @@ export class Producto {
       public name: string,
       public description: string,
       public logo: string,
-      public date_release: Date,
-      public date_revision: Date
+      public date_release: string,
+      public date_revision: string
     ) {}
   }

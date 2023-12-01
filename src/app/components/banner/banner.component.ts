@@ -11,7 +11,7 @@ import { MenuComponent } from '../menu/menu.component';
   imports: [CommonModule, MenuComponent],
   templateUrl: './banner.component.html',
   template: `<img [src]="logo" alt="Logo">`,
-  styleUrl: './banner.component.css'
+  styleUrl: './banner.component.scss'
 })
 export class BannerComponent {
   logo: string = 'assets/logo.png';

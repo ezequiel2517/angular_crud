@@ -34,3 +34,18 @@
   background-color: $secondary-color !important;
   color: $primary-color;
 }
+
+//TABLES
+@media only screen and (max-width: 768px) {
+
+}
+
+//SMARTPHONE
+@media only screen and (max-width: 480px) {
+  .menu {
+    button {
+      width: 120px;
+      font-size: 12px;
+    }
+  }
+}

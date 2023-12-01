@@ -42,14 +42,14 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
     this.produto = history.state;
-    this.fechaLiberacionFormated = this.datePipe.transform(this.produto.date_release, 'yyyy-MM-dd');
-    this.fechaRevisionFormated = this.datePipe.transform(this.produto.date_revision, 'yyyy-MM-dd');
+    this.fechaLiberacionFormated = this.datePipe.transform(this.produto?.date_release, 'yyyy-MM-dd');
+    this.fechaRevisionFormated = this.datePipe.transform(this.produto?.date_revision, 'yyyy-MM-dd');
 
     this.productoForm = this.fb.group({
-      Id: [this.produto.id, this.validarCampo(3, 10)],
-      Nombre: [this.produto.name, this.validarCampo(5, 100)],
-      Descripcion: [this.produto.description, this.validarCampo(10, 200)],
-      Logo: [this.produto.logo, [Validators.required]],
+      Id: [this.produto?.id, this.validarCampo(3, 10)],
+      Nombre: [this.produto?.name, this.validarCampo(5, 100)],
+      Descripcion: [this.produto?.description, this.validarCampo(10, 200)],
+      Logo: [this.produto?.logo, [Validators.required]],
       FechaLiberacion: [this.fechaLiberacionFormated, [Validators.required, this.validarFecha]],
       FechaRevision: [this.fechaRevisionFormated, [Validators.required, this.validarFecha]]
     });
@@ -74,6 +74,7 @@ export class FormularioComponent implements OnInit {
         date_release: this.productoForm.value?.FechaLiberacion,
         date_revision: this.productoForm.value?.FechaRevision
       }
+      console.log(producto);
       this.onSubmitForm.emit(producto);
     }
   }

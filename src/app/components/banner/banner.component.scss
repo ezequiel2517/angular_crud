@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5vh;
+    background-color: white;
+}
+
+.container img {
+    margin: 10px;
+    cursor: pointer;
+    width: 20%;
+}
+
+//TABLES
+@media only screen and (max-width: 768px) {
+    .container img {
+        width: 35%;
+    }
+}
+
+//SMARTPHONE
+@media only screen and (max-width: 480px) {
+    .container img {
+        width: 45%;
+    }
+}

@@ -60,7 +60,7 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
-    max-width: 50%;
+    max-width: 60%;
     margin: auto;
 }
 
@@ -109,4 +109,18 @@ span {
     font-family: $font-global;
     margin-left: auto;
     font-size: 12px;
+}
+
+//TABLES
+@media only screen and (max-width: 768px) {
+    .container {
+        max-width: 80%;
+    }
+}
+
+//SMARTPHONE
+@media only screen and (max-width: 480px) {
+    .container {
+        max-width: 90%;
+    }
 }
