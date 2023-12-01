@@ -3,8 +3,8 @@
     <ng-content></ng-content>
     <hr>
     <div class="container-button">
-      <app-button *ngIf="mostrarAceptar" [color]="'yellow'" (click)="onAceptar()">Aceptar</app-button>
-      <app-button *ngIf="mostrarCancelar" [color]="'grey'" (click)="onCancelar()">Cancelar</app-button>
+      <app-button *ngIf="mostrarAceptar" (click)="onAceptar()">Aceptar</app-button>
+      <app-button *ngIf="mostrarCancelar" (click)="onCancelar()">Cancelar</app-button>
     </div>
   </div>
 </div>

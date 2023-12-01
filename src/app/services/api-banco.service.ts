@@ -18,11 +18,19 @@ export class ApiBancoService {
 
   constructor(private http: HttpClient) { }
 
-  enviarDatos(datos: any): Observable<any> {
+  crearProducto(datos: any): Observable<any> {
     return this.http.post(`${this.apiUrl}`, datos, { headers: this.headers });
   }
 
   getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.apiUrl}`, { headers: this.headers });
+  }
+
+  deleteProducto(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/?id=${id}`, { headers: this.headers });
+  }
+
+  updateProducto(datos: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/?id=${datos?.id}`, datos, { headers: this.headers });
   }
 }

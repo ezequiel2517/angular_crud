@@ -6,17 +6,12 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.css'
+  styleUrl: './button.component.scss'
 })
 export class ButtonComponent implements OnChanges {
   @Input() disponible: boolean = false;
 
   constructor(private renderer: Renderer2, private el: ElementRef) { }
-
-  @Input() set color(value: string) {
-    const buttonElement = this.el.nativeElement.querySelector('button');
-    this.renderer.setStyle(buttonElement, 'background', value);
-  }
 
   @Input() set tipo(value: string) {
     const buttonElement = this.el.nativeElement.querySelector('button');

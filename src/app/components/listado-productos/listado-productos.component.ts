@@ -5,6 +5,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { ApiBancoService } from '../../services/api-banco.service';
 import { Producto } from '../../models/producto';
 import { CargandoComponent } from '../cargando/cargando.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { CargandoComponent } from '../cargando/cargando.component';
   standalone: true,
   imports: [CommonModule, FormsModule, ModalComponent, CargandoComponent],
   templateUrl: './listado-productos.component.html',
-  styleUrl: './listado-productos.component.css'
+  styleUrl: './listado-productos.component.scss'
 })
 export class ListadoProductosComponent implements OnInit {
   items: Producto[] = [];
@@ -22,13 +23,21 @@ export class ListadoProductosComponent implements OnInit {
   searchTerm: string = '';
   totalPages: number = 0;
   cargando: boolean = true;
+  mostrarError : boolean = false;
+  mErrror : string = "";
 
-  constructor(private cdr: ChangeDetectorRef, private api: ApiBancoService) {
+  constructor(private cdr: ChangeDetectorRef, private api: ApiBancoService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.obtenerProductos();
     this.totalPages = this.getTotalPages();
+  }
+
+  toProdcuto(item: Producto) : void {
+    this.router.navigate(['editar'], {
+      state: item,
+    });
   }
 
   obtenerProductos(): void {
@@ -38,8 +47,6 @@ export class ListadoProductosComponent implements OnInit {
           this.items = productos;
           this.filteredItems = this.items;
           this.cargando = false;
-        },
-        error => {
         }
       );
     }, 2000);
@@ -89,12 +96,26 @@ export class ListadoProductosComponent implements OnInit {
   }
 
   eliminarItem(itemId: string): void {
-    // Aquí debes implementar la lógica para eliminar el elemento
-    // por ejemplo, puedes filtrar la lista de items para quitar el elemento a eliminar
-    this.items = this.items.filter(item => item.id !== itemId);
-    this.filterItems();
-    this.cdr.detectChanges();
-    // También podrías realizar una llamada a un servicio para eliminar el elemento en tu backend
+    this.api.deleteProducto(itemId).subscribe(
+      res => {
+        if (res?.status===200) {
+          this.items = this.items.filter(item => item.id !== itemId);
+          this.filterItems();
+          this.cdr.detectChanges();
+        }
+      },
+      error => {
+        if (error?.status===200) {
+          this.items = this.items.filter(item => item.id !== itemId);
+          this.filterItems();
+          this.cdr.detectChanges();
+        }
+        else {        
+            this.mostrarError=true;
+            this.mErrror = `Error al crear el elemento: ${error?.error}`;
+        }
+      }
+    );
   }
 
   mostrarPopupPorItem: { [key: string]: boolean } = {};
@@ -109,7 +130,10 @@ export class ListadoProductosComponent implements OnInit {
   }
 
   onCancelar(itemId: string) {
-    // Lógica cuando se hace clic en Cancelar
     this.mostrarPopupPorItem[itemId] = false;
+  }
+
+  onAceptarError(){
+    this.mostrarError = false;
   }
 }

@@ -1,0 +1,8 @@
+<div class="container">
+    <app-formulario [produto]="producto" (onSubmitForm)="handleFormSubmit($event)"></app-formulario>
+</div>
+
+
+<app-modal *ngIf="mostrarRespuesta" [mostrarCancelar]="false" (aceptarClicked)="onAceptar()">
+    <p>{{mRespuesta}}</p>
+</app-modal>

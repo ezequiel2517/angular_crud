@@ -7,7 +7,7 @@ import { ButtonComponent } from '../button/button.component';
   standalone: true,
   imports: [CommonModule, ButtonComponent],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css'
+  styleUrl: './modal.component.scss'
 })
 
 export class ModalComponent {

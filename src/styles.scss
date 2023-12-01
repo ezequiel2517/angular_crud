@@ -1,0 +1,11 @@
+@import './app/styles/colors.scss';
+
+$font-global: Arial, Helvetica, sans-serif;
+
+body {
+    background-color: $background-app;
+}
+
+body, html {
+    margin: 0;
+}

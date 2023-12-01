@@ -1,0 +1,11 @@
+<div class="menu">
+    <button (click)="toProductos()" [ngClass]="{'activo': isRouteActive('/productos')}">
+        <i class="fas fa-list"></i> Listado de Productos
+    </button>
+    <button (click)="toGithub()" [ngClass]="{'activo': isRouteActive('/github')}">
+        <i class="fas fa-laptop"></i> Mi Github
+    </button>
+    <button (click)="toRegistro()" [ngClass]="{'activo': isRouteActive('/crear')}">
+        <i class="fas fa-plus"></i> Crear Producto
+    </button>
+</div>
