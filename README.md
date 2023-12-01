@@ -1,8 +1,8 @@
 # Proyecto
 El proyecto es un front que consulta una API CRUD de productos bancarios.
 
-## Running unit tests
-Ejecutar `ng serve`.
+## Running front
+Ejecutar `npm install` y `ng serve`.
 
 ## Running unit tests
 Por cuestión de tiempo, solo agregué test unitarios sobre las validaciones del formulario. Se pueden ejecutar con `ng test --include=**/formulario.component.spec.ts`.
